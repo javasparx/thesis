@@ -1,0 +1,72 @@
+% \documentclass[a4paper,12pt]{report}   
+\documentclass[a4paper,14pt]{extreport}
+\usepackage{geometry}
+\input{packages} 	%Load packages
+\input{styles} 		%User styles
+ 
+\title{Filogenetik  ma'lumotlarni tahlil qilish prosedurasini ishlab chiqish}
+\author{Javlon Eraliyev Rustambekovich}
+% Johannes Kepler University, Linz, Austria %
+
+\begin{document} 
+\pagenumbering{gobble}
+\input{title} 
+
+
+% \setcounter{page}{1} 	% reset page counter
+% \pagenumbering{roman}	% numerate pages as I,II,III,..
+
+\input{abstract}
+
+% \input{preface}
+ 
+\tableofcontents
+
+\newpage
+
+% \listofexample
+% \newpage
+
+% \listofdefinition
+% \newpage
+
+% \textbf{1.3.6 List of Figures, Tables or Illustrations}
+% If appropriate, a separate list of figures, tables, or illustrations should be included on a 
+% separate page immediately following the table of contents.
+% 
+% \textbf{1.4.2 Glossary}
+% A list of special technical words or acronyms may be necessary. This is particularly true if 
+% the subject deals with a new area with a specialised vocabulary that the average reader in 
+% the discipline might not be familiar with, such as the Internet. This list should come after the 
+% appendices.
+% 
+% 
+% When \cite{texbook} using numbers in the text, numbers up to one hundred should normally be written in 
+% words, and if the first word of a sentence is a number it should be written in words. Numbers 
+% above one hundred are usually written as numerals (101, 102). For precise guidance, students 
+% should consult the style manual recommended by their \cite{primes} department.
+
+\pagenumbering{arabic}	% numerate pages as 1,2,3,..
+\setcounter{page}{3} 	% reset page counter
+
+% Kirish
+\input{introduction} 
+
+% BOB I
+\input{background}
+ 
+% BOB II
+\input{art}
+
+% BOB III
+\input{implementation}
+
+\input{conclusion}
+
+%\input{reference}
+
+\bibliographystyle{plainnat}	
+\bibliography{biblio}
+
+
+\end{document}

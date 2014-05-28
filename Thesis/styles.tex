@@ -1,0 +1,72 @@
+%%% Page Layout %%%
+\geometry{a4paper,left=30mm,right=20mm,top=20mm,bottom=20mm}
+
+%%% Fonts %%%
+% \renewcommand{\rmdefault}{ftm} % Times New Roman
+\fontencoding{T1}
+\fontfamily{garamond}
+%   \fontseries{m}
+%   \fontshape{it}
+\fontsize{14}{16}
+%   \selectfont
+
+%%% Alignment and transfers %%%
+\sloppy					% Get rid of the overflow
+\clubpenalty=10000		% Forbid a page break after the first line of a paragraph
+\widowpenalty=10000		% Forbid a page break after the last line of the paragraph
+
+%%% Bibliography %%%
+\bibliographystyle{plain}
+
+%%% Images %%%
+\graphicspath{{images/}} % ref to images dir
+
+%%% Color of hyperlinks %%%
+\definecolor{dark-red}{rgb}{0.4,0.15,0.15}
+\definecolor{dark-blue}{rgb}{0.15,0.15,0.4}
+\definecolor{medium-blue}{rgb}{0,0,0.5}
+\hypersetup{
+    colorlinks, linkcolor={dark-blue},
+    citecolor={dark-blue}, urlcolor={medium-blue}
+}
+
+% Name style for List of Examples and impl %
+\newcommand{\listexamplename}{List of Examples}
+\newlistof{example}{exp}{\listexamplename}
+\newcommand{\example}[1]{%
+	\refstepcounter{example}
+	\par\noindent\textbf{Example \theexample. } #1
+	\addcontentsline{exp}{example}
+	{\protect\numberline{
+		\textbf{\thechapter.\theexample}}  #1
+	}\par
+}
+
+\setlength{\cftchapnumwidth}{0pt}
+\renewcommand{\cftchappresnum}{\chaptername\ }
+\renewcommand{\cftchapaftersnum}{.}
+\renewcommand{\cftchapaftersnumb}{\newline}
+\renewcommand{\cftchapdotsep}{\cftdotsep}
+
+%Definition
+\newtheorem{defn}{Definition}
+
+% no number starting from subsections downwards either in the document and in the TOC
+\setcounter{secnumdepth}{1}
+\setcounter{tocdepth}{2} 
+
+\linespread{1.5}
+
+% \newcommand{\listdefinitionname}{List of Definition}
+% \newlistof{definition}{defi}{\listdefinitionname}
+% \newcommand{\definition}[1]{%
+% 	\refstepcounter{definition}
+% 	\par{Definition \thedefinition. #1}
+% 	\addcontentsline{defi}{definition}
+% 	{\protect\numberline{
+% 		\thechapter.\thedefinition}#1
+% 	}\par
+% } 
+
+%%% Contents %%%
+% \renewcommand{\cftchapdotsep}{\cftdotsep}

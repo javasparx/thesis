@@ -1,0 +1,151 @@
+\chapter*{Introduction}
+ \addcontentsline{toc}{chapter}{\numberline{}Introduction}
+\begin{quote}
+%Add abstract here
+\end{quote}
+
+Phylogenetic is the study of the evolutionary histories of living 
+organisms, and represent the evolutionary divergences by finite 
+directed (weighted) graphs, or directed (weighted) trees, known 
+as \textit{phylogeny}. Based on molecular sequences, phylogenetic trees 
+can be built to reconstruct the evolutionary tree of species involved. 
+In particular, the representation derived from genes or protein 
+sequences is known as \textit{gene phylogeny}, while the representation 
+of the evolutionary path of the species are often referred as 
+species \textit{phylogeny}. A gene phylogeny is, to some extend, a local desciption. 
+It only describes the evolution of a particular gene or encoded protein, 
+and this sequence could evolve much more or less differently than 
+other genes in the genome, or it may have completely different 
+evolutionary history from the rest of the genome due to horizontal 
+gene transfers. Therefore, the evolution of a particular gene only 
+provides a local picture, not necessarily reflect the \textit{global} 
+evolutionary picture of the species. We can only hope that we could 
+assemble the jigsaw puzzle pieces with a wide selection of gene 
+family to give an overall assessment of the species evolution. 
+
+While in general the topology in phylogenetic trees represents 
+the relationships between the taxa, assigning scales to edges 
+in the trees could provide extra information on the amount of 
+evolution divergence as well as the time of the divergence. 
+The phylogenetic trees with the scaled edges are called \textit{phylograms}, 
+while the non-scaled phylogenetic trees are called \textit{cladograms}. 
+Purely for the sake of computers data processing, some special 
+formats were artificially created, such as Newick format. From 
+biological point of view, the building of phylogenetic trees 
+can be roughly divided into the following steps. 
+
+
+\textbf{Choose molecular marker.}
+In building molecular phylogenetic trees, either nucleotide 
+or protein sequence data can be used, but the outcomes from 
+the choice could be quite different. The rule of thumb is to 
+select nucleotide sequences when some very closely related 
+organisms are studied because they tend to evolve more rapidly 
+than proteins; and to select protein sequence (or slowly evolving 
+nucleotide sequences) when more widely divergent groups of 
+organisms are studied.
+
+
+\textbf{Perform sequence alignment.}
+ The sequence alignment establishes positional correspondence 
+ in evo- lution, and aligned positions are assumed to be 
+ genealogically related. Though there have been numerous 
+ so-called \textit{state-of-art} alignment programs available and 
+ many times they do help, manual editing is often
+ crucial in the quality of alignment, and yet there is 
+ no firm or clearly defining rule on how to modify a 
+ sequence alignment. 
+ 
+ 
+ \textbf{Choose a model of evolution.}
+  One quantitate measure of divergence between two 
+  sequences is the number of substitutions in an alignment. 
+  However, this measure can somehow be misleading in 
+  representing the true evolution. Not only the nucleotide 
+  may actually undergone several intermediate steps of 
+  changes behind a single mutation in the sequence, but 
+  also an observed identical nucleotide may hide parallel 
+  mutations of both sequences. This is known as homoplasy. 
+  The statistical models used to correct homoplasy are 
+  called evolutioinary models. For constructing DNA 
+  phylogenies, there have been Jukes-Cantor model and 
+  Kimural model.
+  
+ 
+\textbf{Determine a tree building method.}
+ There are basically two types of phylogenetic 
+ methods, character based methods and distance 
+ based methods. Character-based methods based on 
+ discrete characters from molecular sequences from 
+ individual taxa. The theory is that characters at 
+ corresponding positions in a multiple sequence 
+ alignment are homologous (this word has different 
+ meaning in mathematics and is precisely defined for 
+ sequences with differentials.) among the sequences 
+ involved. On the other hand, distance-based methods is 
+ based on the distance, the degrees of differences between 
+ pairs of seqeuences. Such distance will be used to construct 
+ the distance matrix between individual pairs of taxa. 
+ The theory in this case is that all sequences involved 
+ are homologous and the weighted directed tree will 
+ satisfy the additive properties. There are two different 
+ algorithms in distance based method, the cluster-based 
+ and the optimality-based. The cluster-based method 
+ algorithms build a phylogenetic tree based on a distance 
+ matrix starting from the most similar sequence pairs. 
+ The algorithms of cluster-bsed include unweighted pair 
+ group method using arithmetic average (UPGMA) and 
+ neighbor joining (NJ). The optimality-based method 
+ algorithms compare numerous different tree topologies 
+ and select the one which is believed to best fit between 
+ computed distances in the trees and the desired 
+ evolutionary distances which often referred as actual 
+ evolutionary distances. Algorithms of optimality based 
+ include Fitch-Margoliash and minimum evolution. 
+
+\section*{Motivation}
+%\addcontentsline{toc}{section}{\numberline{}Motivation} 
+
+The root of the problem lies in the lack of a certain mechanism 
+for analyzing phylogenetic sequences. This makes it possible to 
+analyze and build phylogenetic trees from given data. The problem 
+is to optimize constructing large trees using estimate 
+calculations algorithms.
+
+The aim is to find an optimal solution in a set of candidate solutions. 
+There are other types of problems besides optimisation and decision problems. 
+This dissertation will deal with optimisation problems.
+
+Problems are not only categorised on the basis of the types of 
+answer they seek, but also on the basis of how complex it is to 
+compute the answers. For some problems, there is no algorithm 
+giving always the correct answer. For most of the problems 
+encountered in practice, however, the complexity of their 
+solution is measured in terms of the amount of computational 
+resources (typically time and memory space) that algorithms need 
+in order to compute the correct output.
+ 
+
+\section*{Research question} 
+%\addcontentsline{toc}{section}{\numberline{}Research question}
+
+The following research questions were defined from given below 
+background of the problem:
+
+ 
+\section*{Contributions}
+%\addcontentsline{toc}{section}{\numberline{}Contributions}
+
+\section*{Outline}
+%\addcontentsline{toc}{section}{\numberline{}Outline}
+
+Although the first section of each chapter gives an overview of
+its contents, below outlined the contents of each chapter in a more 
+concise way.
+
+In the first chapter phylogeny, trees, gene, gene sequence are disscused.
+
+In the second chapter state of art and how the estimate calculations 
+algorithms can be used to solve problem are discussed
+
+
