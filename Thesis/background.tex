@@ -544,14 +544,22 @@ $\frac{1}{K}\frac{1}{|W_j|}$ in Eq. (1.10):
 \Gamma_j(S) = \sum_{S' \in W_j} \gamma(S') \sum_{\tilde{\omega} \in \Omega_A} p(\tilde{\omega}) B_{\tilde{\omega}}(S,S'), j = \bar{1,l}
 \end{equation}
 
-\section{Phylogenetic tree reconstructing phases}
+\section{Phylogenetic tree reconstructing steps}
 There are several methods for reconstructing phylogenetic trees.
-But, we will discus here about distance-based methods, 
+But, in the thesis we will discus about distance-based methods, 
 because they are easy to understand \ref{methods}.
+
+\begin{figure}[!htb] 
+  \center
+  \includegraphics[width=1\textwidth]{reconstructing}
+  \caption[w]{Main steps to reconstruct phylogeny tree.} 
+  \label{img:rec1}  
+\end{figure}
+
 We will discus them in the next chapter in details. 
 Below, you can find main phases for distance-based methods.
 
-\subsection{Phase 1: Align sequences} \label{phase1}
+\subsection{Step 1: Align sequences} \label{phase1}
 
 \begin{algorithm}[H]
 \KwData{Given $n$ unaligned sequences\;}
@@ -617,7 +625,7 @@ never reconsidered despite what other decisions are made for the remaining speci
 This can lead to inaccuracies in the final alignment.
 \end{description}
 
-\subsection{Phase 2: Building of Distance Matrix} \label{phase2}
+\subsection{Step 2: Building of Distance Matrix} \label{phase2}
 An important tool in distance-based methods in building phylogenetic 
 tree is the use of distance matrix. An $m*n$ matrix is a collection 
 of $nm$ real numbers, arranged in $m$ rows and $n$ columns.
