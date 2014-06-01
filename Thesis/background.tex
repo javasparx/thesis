@@ -23,7 +23,7 @@ For example, phylogenies are now being extensively used in the biomedical scienc
 including developmental biology, genomic biology, infectious disease, virology,
 and human genetics \cite{jumpstarting}.
 
-\subsection{Phylogeny Tree}
+\subsection{Phylogenetic Tree}
 Since this thesis is about phylogenetic trees, it is therefore 
 appropriate to start by defining a tree \cite{alkim}. 
 Trees can be classified as unrooted or rooted phylogenetic trees. An 
@@ -31,9 +31,9 @@ unrooted phylogenetic tree or just unrooted tree is an acyclic connected
 graph having no internal vertices of degree two and every leaf having 
 different label. The leaves are vertices of degree one \ref{img:sample1}.
 
-\begin{figure}[!htbp] 
+\begin{figure}[!htbp]
   \center
-  \includegraphics{tree1}
+  \includegraphics[width=0.5\textwidth]{tree1}
   \caption[w]{Four examples of phylogenetic trees. (1) and (2) are unrooted. (3) and 
 (4) are rooted. (2) and (4) are binary. } 
   \label{img:sample1}  
@@ -49,7 +49,7 @@ phylogenetic tree with n leaf nodes there are n-1 internal nodes.
 
 \begin{figure}[!htbp] 
   \center
-  \includegraphics{tree2}
+  \includegraphics[width=0.5\textwidth]{tree2}
   \caption[w]{In a binary tree each internal node has degree three with the 
 exception of the root which has degree two.} 
   \label{img:sample2}  
@@ -58,10 +58,6 @@ exception of the root which has degree two.}
 The leaves of the tree represent species. For example let L(T) be the 
 set of leaves for tree T. If T the set of trees, then we can say that L(T) is the 
 union of the leaf sets of the trees in T. 
-
-In a rooted tree we say that a vertex a is an ancestor of a vertex b, if 
-the path from b to the root passes through a. We can also say that b is the 
-descendant of a.  
 
 The vertices adjacent to a vertex that are descendants of the vertex 
 are called the children of the vertex, and the adjacent vertex that is an 
@@ -74,7 +70,7 @@ called dendograms \ref{img:sample3}.
 
 \begin{figure}[!htbp] 
   \center
-  \includegraphics{tree3}
+  \includegraphics[width=0.5\textwidth]{tree3}
   \caption[w]{An example of dendogram.} 
   \label{img:sample3}  
 \end{figure}
@@ -118,10 +114,9 @@ call a fan with k leaves a k-fan.
 % to these formats.
 
 \section{Estimate colculations algorithms}
-Abstract - Most of the advanced data processing and analysis technologies 
+\subsection{Abstract} Most of the advanced data processing and analysis technologies 
 designed for solving domain-specific problems employ the automation and 
-optimization techniques of decision-making based on 'real' (incomplete, 
-indirect, heterogeneous, inconsistent, erroneous, etc.) information. 
+optimization techniques of decision-making based on 'real' information. 
 The methods of mathematical theory of pattern recognition play an important role here. 
 To carry out image recognition, we need an image representation that 
 corresponds to the requirements of the efficient recognition algorithm chosen 
@@ -133,56 +128,28 @@ images. Thus, there is a practical need for an efficient recognition algorithm t
 directly deals with images and their fragments. More-over, the algorithm should 
 provide the possibility of posing and solving the problem of choosing the best
 recognition algorithm. This class of algorithms - algorithms of estimate calculations 
-based on 2D information (2D-AEC)- was defined by I. Gurevich as a special type of 
+based on 2D information - was defined by I. Gurevich as a special type of 
 the classical model of the recognition algorithms based on estimate calculations 
 (AEC) introduced by Yu. Zhuravlev. Generally, the AEC model can cope with the spatial 
-(2D) image structure. The principal feature of the 2D-AEC is the use of the proximity 
-of objects in spatial support sets, i.e., in images and their fragments. The range 
-of the problems of 2D-AEC includes the enumeration and investigation of spatial 
-support sets as well as definition of the subclasses of algorithms (corre- sponding 
-to the types of the support sets) which allow one to produce efficient formulas that 
-model the work of the algorithms. In this work, we find these formulas for the particular 
-subclass of 2D-AEC - algorithms of estimate calculations with rectangular support sets.
+(2D) image structure. In this work, we find these formulas more efficient to reconstruct
+phylogenetic tree.
+
 \subsection{Overview}
 
-%Unit testing \label{1st_ex} first introduced by Kent Beck
-%in the Smalltalk language and then the concept has 
-%been adapted to other languages.  
+% Most of the current data technologies for information processing and analysis designed 
+% to solve domain-specific content-driven problems employ the automation and optimization 
+% techniques of operative decision-making based on 'real' (incomplete, indirect, heterogeneous,
+% inconsistent, erroneous, etc.) information. These information technologies are widely 
+% used in medical and technical diagnoses, nondestructive testing, ecological monitoring,
+% natural disaster and emergency forecasting (like technogenic catastrophes, earthquakes, 
+% fioods, forest fires), informa- tion and copyright protection, security systems, 
+% scientific research automation, smart weapons, remote earth sensing, criminal law, 
+% and control. The methods of mathematical theory of pattern recognition are the basic 
+% tools for solving all of these problems. In most cases, when initial data are completely 
+% or partly represented as images, it is necessary to use the methods of analysis and 
+% estimation of information represented by images. 
 
-Most of the current data technologies for information processing and analysis designed 
-to solve domain-specific content-driven problems employ the automation and optimization 
-techniques of operative decision-making based on 'real' (incomplete, indirect, heterogeneous,
-inconsistent, erroneous, etc.) information. These information technologies are widely 
-used in medical and technical diagnoses, nondestructive testing, ecological monitoring,
-natural disaster and emergency forecasting (like technogenic catastrophes, earthquakes, 
-fioods, forest fires), informa- tion and copyright protection, security systems, 
-scientific research automation, smart weapons, remote earth sensing, criminal law, 
-and control. The methods of mathe- matical theory of pattern recognition are the basic 
-tools for solving all of these problems. In most cases, when initial data are completely 
-or partly represented as images, it is necessary to use the methods of analysis and 
-estimation of information represented by images. 
-
-A vast majority of problems which arise 
-during image analysis are, naturally, pattern recognition problems. At the same time, 
-the problems of image recognition  per se  are formulated and solved much more seldom 
-than is required by practical needs. The reasons are quite evident. At the informational 
-level, the main difficulties are connected to the following two problems: 
-(i) image description (modeling) and (ii) development and optimization of the choice of 
-mathematical methods for image transformations. The solution to the image recognition 
-problem implies that (i) there is an image representation and an efficient recognition 
-algorithm and (ii) this representation corresponds to the requirements which the 
-algorithm imposes on the initial data. Generally, in recognition problems, 
-there are only two ways of data representation: (i) as direct spatial information 
-(e.g., by pixels or a local neighborhood of the second order that consists of pixel 
-arrays) and (ii) as a system of objects and relations extracted in images. 
-Before applying a recognition algorithm, it is neces- sary to present initial 
-data in the form convenient for recognition. In the first case, a recognition 
-algorithm should allow the image itself or its fragments to be processed; here, 
-the procedures of transforming the initial data in the form convenient for recognition 
-are reduced to choosing the shape of the fragments whereby the recognized object 
-is matched to the template, to fragmenting the image, etc.
-
-In the second case, the procedures of transforming the initial data in the form 
+The procedures of transforming the initial data in the form 
 convenient for recognition should yield a mathematical model of an image. 
 This model should refiect the inner structure and content of the image as an 
 outcome of operations that construct the image from the subimages and other 
@@ -204,9 +171,8 @@ process in two ways.
 First, according to classical pattern recognition theory, 
 we can use the list of features as a main formalization principle and 
 
-(a) two 
-types of features are introduced in the description; they refiect a two-dimensional 
-character of the object to be recognized: 
+(a) two types of features are introduced in the description;
+they refiect a two-dimensional character of the object to be recognized: 
 
 -characteristics which refiect the properties of some local image fragment 
 (the distribution of pixel values in this fragment, the presence or 
@@ -247,17 +213,17 @@ sets and the type of proximity function. A recognition algorithm
 uses a system of support sets as a system of feature subsets 
 for matching object descriptions. A proximity function defines 
 whether the matched objects are 'close'. 
-
-By now, the most comprehensive study concerned the problems 
-of deriving efficient formulas for AEC in the case where all 
-available objects are described by the one-dimensional feature 
-vectors and the support sets encode the parts of these one-dimensional 
-descriptions. This problem was solved for the main subclasses of AEC in.
-
-When the efficient formulas for estimate calculations are constructed, 
-the optimal (for the given model) algorithm can be chosen by 
-one of the classical optimi- zation techniques or by modifying 
-these techniques. A lot of research was devoted to this problem.
+% 
+% By now, the most comprehensive study concerned the problems 
+% of deriving efficient formulas for AEC in the case where all 
+% available objects are described by the one-dimensional feature 
+% vectors and the support sets encode the parts of these one-dimensional 
+% descriptions. This problem was solved for the main subclasses of AEC in.
+% 
+% When the efficient formulas for estimate calculations are constructed, 
+% the optimal (for the given model) algorithm can be chosen by 
+% one of the classical optimi- zation techniques or by modifying 
+% these techniques. A lot of research was devoted to this problem.
   
 Although the efficient formulas are constructed almost for every 
 AEC model of practical interest, the problem of constructing such 
@@ -315,7 +281,7 @@ and $1\leq k\leq n;$ i.e.,  $\Omega_A$ consists of all of the subsets of the
 set $N$ which have a power no more than the predefined one. 
 
 1.4. $\Omega_A=\{\Omega|\Omega\subseteq N,|\Omega|\subseteq \{k_1,k_2,\ldots,k_u\}\}$, where 
-$k_1,k_2,\ldots,k_u$  are integers and $1\leq ki \leq n, i=TODO$. 
+$k_1,k_2,\ldots,k_u$  are integers and $1\leq k_i \leq n, i=\bar{1,n}$. 
 
 Any support set $\Omega$ 
 can be encoded by the binary vector $\tilde{\omega}$ of the length $n$ in the following way: 
@@ -544,224 +510,21 @@ $\frac{1}{K}\frac{1}{|W_j|}$ in Eq. (1.10):
 \Gamma_j(S) = \sum_{S' \in W_j} \gamma(S') \sum_{\tilde{\omega} \in \Omega_A} p(\tilde{\omega}) B_{\tilde{\omega}}(S,S'), j = \bar{1,l}
 \end{equation}
 
-\section{Phylogenetic tree reconstructing steps}
+\section{Phylogenetic tree reconstruction}
 There are several methods for reconstructing phylogenetic trees.
-But, in the thesis we will discus about distance-based methods, 
-because they are easy to understand \ref{methods}.
+But, in the thesis we will discus about distance-based methods\ref{methods}.
+
+Construction of a phylogenetic tree can be divided 
+into three major steps.
 
 \begin{figure}[!htb] 
   \center
   \includegraphics[width=1\textwidth]{reconstructing}
-  \caption[w]{Main steps to reconstruct phylogeny tree.} 
+  \caption[w]{Main steps to reconstruct phylogenetic tree.} 
   \label{img:rec1}  
 \end{figure}
 
-We will discus them in the next chapter in details. 
-Below, you can find main phases for distance-based methods.
-
-\subsection{Step 1: Align sequences} \label{phase1}
-
-\begin{algorithm}[H]
-\KwData{Given $n$ unaligned sequences\;}
-\KwResult{$n$ aligned sequences\;}
-\eIf{All sequnces have same length}{
-	go to next phase\;
-}
-{
-	Align all sequences to each other\;
-}
-\end{algorithm}
-
-\cite{rporter}
-Sequence alignment is a way of arranging sequences of DNA, RNA, or 
-proteins in order to distinguish regions of similarity. A multiple sequence 
-alignment (MSA) is a sequence alignment of three or more biological sequences 
-such as protein, DNA, or RNA. Typically it is implied that the set of sequences 
-share an evolutionary relationship, which means they are all descendents from a 
-common ancestor. These regions may correspond to functional, structural, or 
-evolutionary relationships between the sequences. Alignments can reflect a degree 
-of evolutionary change between sequences that are descendants from a common 
-ancestor. There is a relationship between phylogenies and sequence alignments.
-
-To find the globally optimum alignment, a dynamic programming technique 
-can be used if one uses a parsimony approach and a particular scoring scheme. 
-There is no universally agreed upon scoring scheme. This approach is 
-computationally expensive and impractical since it has been shown to be a NP-complete 
-problem. Instead, heuristics are commonly used to perform a multiple 
-sequence alignment. This research focused on studying one heuristic approach 
-called progressive alignment. One popular program that employs a progressive 
-alignment method is ClustalW \nocite{clustalw} \footnote{ClustalW is a popular 
-program used for multiple sequence alignment and for preparing phylogenetic trees}. 
-Perform a multiple sequence alignment can be broken down into three major steps.
-\nocite{clustalwsite}
-
-\begin{description}
-\item[FIRST], all pairs of sequences are aligned separately and then a distance 
-matrix is calculated giving the divergence of each pair of sequences. A full 
-dynamic programming alignment is calculated for each pair using two gap 
-penalties, one for opening a gap and another for extending a gap. The score in the 
-distance matrix is computed by taking the number of identities in the best 
-alignment divided by the number of residues compared excluding gap positions. 
-Then that number is multiplied by 100 and subtracted from 1.0 to give a value 
-between 0 and 1.0.
-\item[SECOND], a guide tree is calculated which will be used to guide the final 
-multiple alignment process. This tree is calculated by using the distance matrix 
-from the first step and a Neighbor-Joining clustering algorithm. Weights are also 
-assigned to each sequence depending on their distance from the root of the tree. By 
-contrast, in the original Clustal progressive alignment algorithm, all sequences 
-would be equally weighted. 
-\item[THIRTD], the sequences are progressively aligned according to the branching 
-order in the guide tree. To do this a series of pairwise alignments are used to align 
-larger and larger groups of sequences. First, proceed from the tips of the rooted 
-tree towards the root. At each alignment a full dynamic programming algorithm is 
-used with penalties for opening and extending gaps. Each step aligns two existing 
-alignments or sequences. Gaps that are present in the older alignments stay in 
-place. When all the sequences have been considered a final alignment is produced. 
-That final alignment can then be used to construct a phylogenetic tree for those 
-species. 
-\item[Disadvantages:] One disadvantage of a progressive alignment approach is that, once an 
-alignment has been performed involving some of the species, this alignment is 
-never reconsidered despite what other decisions are made for the remaining species. 
-This can lead to inaccuracies in the final alignment.
-\end{description}
-
-\subsection{Step 2: Building of Distance Matrix} \label{phase2}
-An important tool in distance-based methods in building phylogenetic 
-tree is the use of distance matrix. An $m*n$ matrix is a collection 
-of $nm$ real numbers, arranged in $m$ rows and $n$ columns.
-
-\[
-M = \begin{bmatrix}
-	a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
-  	a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
-  	\vdots  & \vdots  & \ddots & \vdots  \\
-  	a_{m,1} & a_{m,2} & \cdots & a_{m,n}
-\end{bmatrix}
-\]
-
-Each number $a_{ij}$ in the matrix is called an $entry$ of the $matrix$. 
-A matrix is said to be $symmetric$ if for any row and column 
-$i,j, a_{ij} = a_{ji}$. The following examples show the 
-symmetry and asymmetry of matrices.
-
-In particular, if a matrix has the same number of rows 
-and columns, $n*n$, it is often called a square matrix. 
-Given a collection of n sequences, with distance $d$ defined 
-between any pair of sequences, the following matrix
-
-\[
-M = \begin{bmatrix}
-	a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
-  	a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
-  	\vdots  & \vdots  & \ddots & \vdots  \\
-  	a_{n,1} & a_{n,2} & \cdots & a_{n,n}
-\end{bmatrix}
-\]
-
-is call the distance matrix, where $d_{ij}$ is the distance 
-between the $i$th and $j$th sequences.
-
-One of chanllenges in using distance matrices with distance 
-methods to build phylogenetic tree is the building of the matrix. 
-The very necessary condition to make all the thory work is that 
-the distance must satisfy metric property. That is, all the 
-entries in the distance matrix representing distances between 
-sequences must satisfy the triangulr inequality,
-\[
-d_{ik} \leq d_{ij} + d_{jk},
-\]
-
-for all $1 \leq i,j,k \leq n$. Unfortunately, many times 
-it is not the case in practice. There are always some 
-entries fail the inequality, if not all of them.
-
-Our first algorithm is to correct any possible errors to 
-make the matrix symmetric. Assuming that, upon detection 
-of asymmetries, there is no way algorithm would know which 
-one is the true correct data, it simply uses the average 
-of the two values to substitute. The pseudo-code for the 
-algorithm is given in the following. 
-
-
-\begin{algorithm}[H]
-\KwData{n is the number of nodes, i=1\;}
-\KwResult{retrieve data matrix in a double string\;}
-\While{i!=n}{
-	j=2\;
-	\If{d[ij]!=d[ji]}{
-		 substitute d[ij] and d[ji] by (d[ij]+d[ji])/2\;
-	}
-	j=j+1\; 
-	\If{j=n}
-	{
-		i=i+1\;
-	}  
-}
-\SetAlgoRefName{}	
-\caption{Symmetry Enforcing - Iteration}
-\end{algorithm}
-
-The complexity of the algorithm is linear since the matrix 
-has $O(n^2)$ entries.
-
-\subsubsection{Metric distance matrix}
-Assume we now have a symmetric distance matrix, our next 
-challenge is to enforce the metric property. Again, 
-our assumption is that the algorithm would not know the 
-true correct data, it simply uses the minimum value to make 
-the distance metric. More specifically, for a node $A_n$, 
-if the triangular inequality holds, then for any $j,k < i$, 
-we must have
-
-\[
-d_{ik} \geq d_{ij} - d_{jk},
-\]
-
-Thus,
-
-\[
-d_{ik} \geq \max_{k<j}(d_{ij} - d_{jk}),
-\]
-
-is a necessary condition for the triangular inequality to be true. 
-The pseudo-code for the algorithm is given in the following.
-
-\begin{algorithm}[H]
-\KwData{n is the number of nodes; i=3\;}
-\KwResult{retrieve data matrix M[n] in a double string\;}
-\While{i!=n+1}{
-	j=2\;
-	k=1\;
-	\If{ d[ij]<d[jk]-d[ik]}{
-		 substitute d[ij] by d[jk]-d[ik]\;
-	}
-	k=k+1\; 
-	\If{k=j}
-	{
-		j=j+1\;
-	} 
-	\If{j=i}
-	{
-		i=i+1\;
-	}  
-}
-\SetAlgoRefName{}	
-\caption{Metricalization of distance matrix}
-\end{algorithm}
-
-The complexity of the algorithm will also be polynomial since
-
-\[
-\sum_i^n i*i(i+1) \cong O(n^4)
-\]
-
-Also, the correction process is heavily based on the earlier 
-portion of the data than the later portion. Namely, if a 
-distance matrix fails the triangular property only at the 
-last node or so, the correction is very minimum. 
-On the other hand, if it occurs at the first three 
-(automatically true with only two nodes) nodes, then it 
-might have impact on all the data follows.
+The next chapter will be devoted to these steps.
 
 %\subsection{Phase 3} \label{phase3}
 

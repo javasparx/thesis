@@ -1,20 +1,26 @@
 \chapter{State of Art}
-\section{Previous Researches}
-To show the novelty of my work, at first need to understand what was researched previously.
+\section{Align sequences}
+To show the novelty of my work, at first need to 
+understand what was researched previously.
 
 Same stages of the actions are used to construct a phylogenetic tree in many methods.
 They can be divided in three main actions.
-It is necessary to align sequences so that able to compare each other. 
-One of the earliest formalizations of multiple sequence when it as the 
-problem of reconstructing ancient predecessors to contemporary sequences 
-when the topology of a tree describing the evolution of the sequences is given.
-The edit distances between the sequences at the nodes of this tree define the 
-lengths of the edges. The problem is to choose the ancient sequence such that 
-the overall length of th tree is minimized. This formulation is called 
-``tree-alligment''. It is one of two commonly used formulations of multiple 
-sequence alignment, the other one being the so-called sum-of-pairs alignment.
 
-\subsection{Multiple Sequence Alignment}
+\subsection{Step 1: Align sequences} \label{phase1}
+
+\begin{algorithm}[H]
+\KwData{Given $n$ unaligned sequences\;}
+\KwResult{$n$ aligned sequences\;}
+\eIf{All sequnces have same length}{
+	go to next phase\;
+}
+{
+	Align all sequences to each other\;
+}
+\end{algorithm}
+
+\cite{rporter}
+
 Alignment methods vary in type of data (DNA, RNA, or amino-acid)
 they can handle, and also, to some extent, the objectives of the alignment method \cite{tandy}.
 Thus, some methods are designed exclusively for proteins, some exclusively
@@ -22,185 +28,363 @@ for RNAs, but many alignment methods can analyze both protein and nucleotide
 datasets. We refer to methods that can analyze all types of molecular sequences as
 ``generic'' methods.
 
-Alignment methods are used to predict function and structure, to determine whether a
-sequence belongs to a particular gene family or superfamily, to recognize homology in the
-``twilight zone'' (where sequence similarity is so low that homology is dificult to detect),
-to infer selection, etc.. On the other hand, alignment methods are also used in order
-to estimate a phylogeny. As we shall see, the design of alignment methods and how they
-are evaluated depend on the purpose they are being used for.
+Sequence alignment is a way of arranging sequences of DNA, RNA, or 
+proteins in order to distinguish regions of similarity. A multiple sequence 
+alignment (MSA) is a sequence alignment of three or more biological sequences 
+such as protein, DNA, or RNA. Typically it is implied that the set of sequences 
+share an evolutionary relationship, which means they are all descendents from a 
+common ancestor. These regions may correspond to functional, structural, or 
+evolutionary relationships between the sequences. Alignments can reflect a degree 
+of evolutionary change between sequences that are descendants from a common 
+ancestor. There is a relationship between phylogenies and sequence alignments.
+
+To find the globally optimum alignment, a dynamic programming technique 
+can be used if one uses a parsimony approach and a particular scoring scheme. 
+There is no universally agreed upon scoring scheme. This approach is 
+computationally expensive and impractical since it has been shown to be a NP-complete 
+problem. Instead, heuristics are commonly used to perform a multiple 
+sequence alignment. This research focused on studying one heuristic approach 
+called progressive alignment. One popular program that employs a progressive 
+alignment method is ClustalW \nocite{clustalw} \footnote{ClustalW is a popular 
+program used for multiple sequence alignment and for preparing phylogenetic trees}. 
+Perform a multiple sequence alignment can be broken down into three major steps.
+\nocite{clustalwsite}
+
+\begin{description}
+\item[FIRST], all pairs of sequences are aligned separately and then a distance 
+matrix is calculated giving the divergence of each pair of sequences. A full 
+dynamic programming alignment is calculated for each pair using two gap 
+penalties, one for opening a gap and another for extending a gap. The score in the 
+distance matrix is computed by taking the number of identities in the best 
+alignment divided by the number of residues compared excluding gap positions. 
+Then that number is multiplied by 100 and subtracted from 1.0 to give a value 
+between 0 and 1.0.
+\item[SECOND], a guide tree is calculated which will be used to guide the final 
+multiple alignment process. This tree is calculated by using the distance matrix 
+from the first step and a Neighbor-Joining clustering algorithm. Weights are also 
+assigned to each sequence depending on their distance from the root of the tree. By 
+contrast, in the original Clustal progressive alignment algorithm, all sequences 
+would be equally weighted. 
+\item[THIRTD], the sequences are progressively aligned according to the branching 
+order in the guide tree. To do this a series of pairwise alignments are used to align 
+larger and larger groups of sequences. First, proceed from the tips of the rooted 
+tree towards the root. At each alignment a full dynamic programming algorithm is 
+used with penalties for opening and extending gaps. Each step aligns two existing 
+alignments or sequences. Gaps that are present in the older alignments stay in 
+place. When all the sequences have been considered a final alignment is produced. 
+That final alignment can then be used to construct a phylogenetic tree for those 
+species. 
+\item[Disadvantages:] One disadvantage of a progressive alignment approach is that, once an 
+alignment has been performed involving some of the species, this alignment is 
+never reconsidered despite what other decisions are made for the remaining species. 
+This can lead to inaccuracies in the final alignment.
+\end{description}
+
+\section{Distance Matrix}
+
+\subsection{Step 2: Building of Distance Matrix} \label{phase2}
+An important tool in distance-based methods in building phylogenetic 
+tree is the use of distance matrix. An $m*n$ matrix is a collection 
+of $nm$ real numbers, arranged in $m$ rows and $n$ columns.
+
+\[
+M = \begin{bmatrix}
+	a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+  	a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+  	\vdots  & \vdots  & \ddots & \vdots  \\
+  	a_{m,1} & a_{m,2} & \cdots & a_{m,n}
+\end{bmatrix}
+\]
+
+Each number $a_{ij}$ in the matrix is called an $entry$ of the $matrix$. 
+A matrix is said to be $symmetric$ if for any row and column 
+$i,j, a_{ij} = a_{ji}$. The following examples show the 
+symmetry and asymmetry of matrices.
+
+In particular, if a matrix has the same number of rows 
+and columns, $n*n$, it is often called a square matrix. 
+Given a collection of n sequences, with distance $d$ defined 
+between any pair of sequences, the following matrix
+
+\[
+M = \begin{bmatrix}
+	a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+  	a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+  	\vdots  & \vdots  & \ddots & \vdots  \\
+  	a_{n,1} & a_{n,2} & \cdots & a_{n,n}
+\end{bmatrix}
+\]
+
+is call the distance matrix, where $d_{ij}$ is the distance 
+between the $i$th and $j$th sequences.
+
+One of chanllenges in using distance matrices with distance 
+methods to build phylogenetic tree is the building of the matrix. 
+The very necessary condition to make all the thory work is that 
+the distance must satisfy metric property. That is, all the 
+entries in the distance matrix representing distances between 
+sequences must satisfy the triangulr inequality,
+\[
+d_{ik} \leq d_{ij} + d_{jk},
+\]
+
+for all $1 \leq i,j,k \leq n$. Unfortunately, many times 
+it is not the case in practice. There are always some 
+entries fail the inequality, if not all of them.
+
+Our first algorithm is to correct any possible errors to 
+make the matrix symmetric. Assuming that, upon detection 
+of asymmetries, there is no way algorithm would know which 
+one is the true correct data, it simply uses the average 
+of the two values to substitute. The pseudo-code for the 
+algorithm is given in the following. 
 
 
-\subsubsection{MSA Evaluation Criteria}
-The standard criteria used to evaluate alignments for
-accuracy are based on shared homologies between the true and the estimated alignment,
-with the SP-score (sum-of-pairs score) measuring the fraction of the true pairwise
-homologies correctly recovered, and the TC-score (``total column'' score) measuring the
-number of identical columns. Variants on these criteria include the true metrics suggested
-by Blackburne et al. and the consideration of diferent types of alignment error (i.e.,
-both false positive and false negative) rather than one overall measure of ``alignment
-accuracy''. Other criteria, such as the identification and correct alignment of specific
-regions within a protein or rRNA, have also been used. Furthermore, because
-sequence alignment has the potential to impact phylogeny estimation, a third way of
-evaluating a multiple sequence alignment method is via its impact on phylogeny estimation
+\begin{algorithm}[H]
+\KwData{n is the number of nodes, i=1\;}
+\KwResult{retrieve data matrix in a double string\;}
+\While{i!=n}{
+	j=2\;
+	\If{d[ij]!=d[ji]}{
+		 substitute d[ij] and d[ji] by (d[ij]+d[ji])/2\;
+	}
+	j=j+1\; 
+	\If{j=n}
+	{
+		i=i+1\;
+	}  
+}
+\SetAlgoRefName{}	
+\caption{Symmetry Enforcing - Iteration}
+\end{algorithm}
 
-\subsubsection{Benchmark datasets}
-Many studies have
-evaluated MSA methods using biological data for which structurally informed alignments
-are available. The best known of these benchmark datasets is probably BAliBASE,
-but others are also used. The choice of benchmarks and how they are used
-has a large impact on the result of the evaluation, and so has been discussed in several
-papers.
+The complexity of the algorithm is linear since the matrix 
+has $O(n^2)$ entries.
 
-From the perspective of phylogeny estimation, one of the
-most important of their observations is that structurally-defined benchmarks often omit
-the highly variable parts of the molecule, including introns. Thus, an alignment can be
-considered completely correct as a structural alignment if it aligns the conserved regions,
-even if it fails to correctly align the variable regions. The problem with this criterion (as
-they point out) is that the highly variable portions are often the sites that are of most use
-for phylogeny estimation, whereas sites that change slowly have little phylogenetic signal.
+\subsection{Metric distance matrix}
+Assume we now have a symmetric distance matrix, our next 
+challenge is to enforce the metric property. Again, 
+our assumption is that the algorithm would not know the 
+true correct data, it simply uses the minimum value to make 
+the distance metric. More specifically, for a node $A_n$, 
+if the triangular inequality holds, then for any $j,k < i$, 
+we must have
 
-\subsubsection{Relative performance of MSA methods}
-While most studies have evaluated alignment methods in terms of standard criteria 
-(notably, SP and TC scores) on biological
-benchmarks, some studies have explored alignment estimation for phylogeny estimation
-purposes. As commented on earlier, many studies have shown that alignment estimation
-impacts phylogenetic estimation, and that alignment and tree error increase with the rate
-of evolution. Also, on very large datasets, due to computational limitations, only a few
-alignment methods can even be run (and typically not the most accurate ones), which
-results in increased alignment error. On the other hand, on large trees with rates of
-evolution that are sufficiently low, alignment estimation methods can differ substantially
-in terms of SP-score without impacting the accuracy of the phylogenetic tree estimated
-using the alignment. More generally, standard alignment metrics may be only poorly
-correlated with tree accuracy in some conditions.
+\[
+d_{ik} \geq d_{ij} - d_{jk},
+\]
 
-\subsubsection{Progressive aligners, and the impact of guide trees}
-Many alignment methods
-use progressive alignment on a guide tree to estimate the alignment; thus the choice of the
-guide tree and its impact on alignment and phylogeny estimation is also of interest. 
-Nelesen studied the impact of the guide tree on alignment methods,
-and showed that improved phylogenetic accuracy can be obtained by first estimating a tree
-from the input using a good two-phase method (RAxML on a MAFFT alignment).
-They noted particular benefits in using Probcons with this guide tree, and called the
-resultant method ``Probtree''. Prank has also been observed to be very sensitive to guide
-trees, and to give improved results by the use of carefully computed guide trees
-(maximum likelihood on good alignments). Another study showed that even
-when the alignment score doesn't change, the alignment itself can change in important
-ways when guide trees are changed. Finally, Capela-Gutierrez and Gabaldon
-found that the placement of gaps in an alignment results from the choice of the guide tree,
-and hence the gaps are not phylogenetically informative. Based on these observations,
-Capela-Gutierrez and Gabaldon recommended that alignment estimation methods should
-use the true tree (if possible), or else use an iterative co-estimation method that infers
-both the tree and the alignment.
+Thus,
 
-\subsubsection{Template-based methods}
-Some alignment methods use a very different type of
-algorithmic structure, which is referred to as being ``template-based''. Instead of
-using progressive alignment on a guide tree, these methods use models (either profiles,
-templates, or Hidden Markov Models) for the gene of interest, and align each sequence to
-the model in order to produce the final multiple sequence alignment, as follows. First, a
-relatively small set of sequences from the family is assembled, and an alignment estimated
-for the set. Then, some kind of model (e.g., a template or a Hidden Markov Model) is
-constructed from this ``seed'' alignment. This model can be relatively simple or quite
-complex, typically depending on whether the model provides structural information. Once
-the model is estimated, the remaining sequences are added to the growing alignment. The
-model is used to align each sequence to the seed alignment (which does not change during
-the process), and then inserted into the growing alignment. Since the remaining sequences
-are only compared to the seed alignment, homologies between the remaining sequences
-can only be inferred through their homologies to the seed alignment. Thus, the choice
-of sequences in the seed alignment and how it is estimated can have a big impact on
-the resultant alignment accuracy. By design, once the seed alignment and the model
-are computed, the running time scales linearly with the number of sequences, and the
-algorithm is trivially parallelizable. Thus, these methods, which we will refer to jointly as
-``template-based methods'', can scale to very large datasets with hundreds of thousands
-of sequences.
+\[
+d_{ik} \geq \max_{k<j}(d_{ij} - d_{jk}),
+\]
 
-There are several examples of methods that use this approach. Some of these methods use curated seed alignments based on
-structure and function of well-characterized proteins or rRNAs; for example, the protein
-alignment method by Neuwald and the rRNA sequence alignment method by Gardner 
-use curated alignments. Constraint-based methods, such as COBALT,
-3DCoffee and PROMALS, similarly use external information like structure and
-function, but then use progressive alignment techniques (or other such methods) to 
-produce the final alignment. Clustal-Omega also has a version, called ``External Profile
-Alignment'', that uses external information (in the form of alignments) to improve the
-alignment step.
+is a necessary condition for the triangular inequality to be true. 
+The pseudo-code for the algorithm is given in the following.
 
-Finally, PAGAN is another member of this class of methods; however, it has
-some specific methodological differences to the others. First, unlike several of the others,
-it does not use external biological information (about structure, function, etc.) to define
-its seed alignment. Second, while the others tend to use either HMMs, profiles, or 
-templates as a model to define the alignment of the remaining sequences, PAGAN estimates
-a tree on its seed alignment, and estimates sequences for the internal nodes. These 
-sequences are then used to define the incorporation of the remaining sequences to the seed
-alignment. This technique is very similar to the technique used in PaPaRa, which
-was developed for the phylogenetic placement problem. Thus, PAGAN
-is one of the ``phylogeny-aware'' alignment methods, a technique that is atypical of these
-template-based methods, but shared by progressive aligners. PAGAN was compared to an
-HMM-based method (using HMMER on the reference alignment to build an HMM, and
-then using HMMALIGN to align the sequences to the HMM) on several datasets.
-The comparison showed that PAGAN had very good accuracy, better than HMMALIGN,
-under low rates of evolution, and that both methods had reduced accuracy under high
-rates of evolution. They also noted that PAGAN failed to align some sequences under
-model conditions with high rates of evolution, while HMMER aligned all sequences; 
-however, the sequences that both HMMER and PAGAN aligned were aligned more accurately
-using PAGAN.
+\begin{algorithm}[H]
+\KwData{n is the number of nodes; i=3\;}
+\KwResult{retrieve data matrix M[n] in a double string\;}
+\While{i!=n+1}{
+	j=2\;
+	k=1\;
+	\If{ d[ij]<d[jk]-d[ik]}{
+		 substitute d[ij] by d[jk]-d[ik]\;
+	}
+	k=k+1\; 
+	\If{k=j}
+	{
+		j=j+1\;
+	} 
+	\If{j=i}
+	{
+		i=i+1\;
+	}  
+}
+\SetAlgoRefName{}	
+\caption{Metricalization of distance matrix}
+\end{algorithm}
 
-\subsubsection{Methods that use divide-and-conquer on the taxon set}
-Some alignment methods use a divide-and-conquer strategy in which the 
-taxon set is divided into subsets
-(rather than the sites) in order to estimate the alignment; these include the 
-mega-phylogeny method developed by Smith, SAT'e, SATCHMO-JS,
-PROMALS, and the method by Neuwald. (The SAT'e and SATCHMO-JS 
-methods co-estimate alignments and trees, and so are not strictly speaking just alignment
-methods.) Neuwald's method is a bit of an outlier in this set, because the user provides
-the dataset decomposition, but we include it here for comparative purposes.
+The complexity of the algorithm will also be polynomial since
 
-While the methods differ in some details, they use similar strategies to estimate 
-alignments. Most estimate an initial tree, and then use the tree to divide the dataset into
-subsets. The method to compute the initial trees differs, with SATCHMO-JS using a
-neighbor joining (NJ) tree on a MAFFT alignment, SAT'e using a maximum 
-likelihood tree on a MAFFT alignment, PROMALS using a UPGMA tree on $k$-mer distances,
-and mega-phylogeny using a reference tree and estimated alignment.
+\[
+\sum_i^n i*i(i+1) \cong O(n^4)
+\]
 
-The subsequent division into subsets is performed in two ways. In the case of 
-mega-phylogeny, SATCHMO-JS, and PROMALS, the division into subsets is performed by
-breaking the starting tree into clades so as to limit the maximum dissimilarity between
-pairs of sequences in each set. In contrast, SAT'e-2 removes centroid edges from the
-unrooted tree, recursively, until each subset is small enough (below 200 sequences). Thus,
-the sets produced by the SAT'e-2 decomposition do not form clades in the tree, unlike the
-other decompositions. Furthermore, the sets produced by the SAT'e-2 decomposition are
-guaranteed to be small (at most 200 taxa) but are not constrained to have low pairwise
-dissimilarities between sequences.
+Also, the correction process is heavily based on the earlier 
+portion of the data than the later portion. Namely, if a 
+distance matrix fails the triangular property only at the 
+last node or so, the correction is very minimum. 
+On the other hand, if it occurs at the first three 
+(automatically true with only two nodes) nodes, then it 
+might have impact on all the data follows.
 
-Alignments are then produced on each subset, with PROMALS, SAT'e, and 
-mega-phylogeny estimating alignments on each subset, and SATCHMO-JS using the alignment
-induced on the subset by the initial MAFFT alignment.
+% \subsubsection{Benchmark datasets}
+% Many studies have
+% evaluated MSA methods using biological data for which structurally informed alignments
+% are available. The best known of these benchmark datasets is probably BAliBASE,
+% but others are also used. The choice of benchmarks and how they are used
+% has a large impact on the result of the evaluation, and so has been discussed in several
+% papers.
+% 
+% From the perspective of phylogeny estimation, one of the
+% most important of their observations is that structurally-defined benchmarks often omit
+% the highly variable parts of the molecule, including introns. Thus, an alignment can be
+% considered completely correct as a structural alignment if it aligns the conserved regions,
+% even if it fails to correctly align the variable regions. The problem with this criterion (as
+% they point out) is that the highly variable portions are often the sites that are of most use
+% for phylogeny estimation, whereas sites that change slowly have little phylogenetic signal.
+% 
+% \subsubsection{Relative performance of MSA methods}
+% While most studies have evaluated alignment methods in terms of standard criteria 
+% (notably, SP and TC scores) on biological
+% benchmarks, some studies have explored alignment estimation for phylogeny estimation
+% purposes. As commented on earlier, many studies have shown that alignment estimation
+% impacts phylogenetic estimation, and that alignment and tree error increase with the rate
+% of evolution. Also, on very large datasets, due to computational limitations, only a few
+% alignment methods can even be run (and typically not the most accurate ones), which
+% results in increased alignment error. On the other hand, on large trees with rates of
+% evolution that are sufficiently low, alignment estimation methods can differ substantially
+% in terms of SP-score without impacting the accuracy of the phylogenetic tree estimated
+% using the alignment. More generally, standard alignment metrics may be only poorly
+% correlated with tree accuracy in some conditions.
+% 
+% \subsubsection{Progressive aligners, and the impact of guide trees}
+% Many alignment methods
+% use progressive alignment on a guide tree to estimate the alignment; thus the choice of the
+% guide tree and its impact on alignment and phylogeny estimation is also of interest. 
+% Nelesen studied the impact of the guide tree on alignment methods,
+% and showed that improved phylogenetic accuracy can be obtained by first estimating a tree
+% from the input using a good two-phase method (RAxML on a MAFFT alignment).
+% They noted particular benefits in using Probcons with this guide tree, and called the
+% resultant method ``Probtree''. Prank has also been observed to be very sensitive to guide
+% trees, and to give improved results by the use of carefully computed guide trees
+% (maximum likelihood on good alignments). Another study showed that even
+% when the alignment score doesn't change, the alignment itself can change in important
+% ways when guide trees are changed. Finally, Capela-Gutierrez and Gabaldon
+% found that the placement of gaps in an alignment results from the choice of the guide tree,
+% and hence the gaps are not phylogenetically informative. Based on these observations,
+% Capela-Gutierrez and Gabaldon recommended that alignment estimation methods should
+% use the true tree (if possible), or else use an iterative co-estimation method that infers
+% both the tree and the alignment.
+% 
+% \subsubsection{Template-based methods}
+% Some alignment methods use a very different type of
+% algorithmic structure, which is referred to as being ``template-based''. Instead of
+% using progressive alignment on a guide tree, these methods use models (either profiles,
+% templates, or Hidden Markov Models) for the gene of interest, and align each sequence to
+% the model in order to produce the final multiple sequence alignment, as follows. First, a
+% relatively small set of sequences from the family is assembled, and an alignment estimated
+% for the set. Then, some kind of model (e.g., a template or a Hidden Markov Model) is
+% constructed from this ``seed'' alignment. This model can be relatively simple or quite
+% complex, typically depending on whether the model provides structural information. Once
+% the model is estimated, the remaining sequences are added to the growing alignment. The
+% model is used to align each sequence to the seed alignment (which does not change during
+% the process), and then inserted into the growing alignment. Since the remaining sequences
+% are only compared to the seed alignment, homologies between the remaining sequences
+% can only be inferred through their homologies to the seed alignment. Thus, the choice
+% of sequences in the seed alignment and how it is estimated can have a big impact on
+% the resultant alignment accuracy. By design, once the seed alignment and the model
+% are computed, the running time scales linearly with the number of sequences, and the
+% algorithm is trivially parallelizable. Thus, these methods, which we will refer to jointly as
+% ``template-based methods'', can scale to very large datasets with hundreds of thousands
+% of sequences.
+% 
+% There are several examples of methods that use this approach. Some of these methods use curated seed alignments based on
+% structure and function of well-characterized proteins or rRNAs; for example, the protein
+% alignment method by Neuwald and the rRNA sequence alignment method by Gardner 
+% use curated alignments. Constraint-based methods, such as COBALT,
+% 3DCoffee and PROMALS, similarly use external information like structure and
+% function, but then use progressive alignment techniques (or other such methods) to 
+% produce the final alignment. Clustal-Omega also has a version, called ``External Profile
+% Alignment'', that uses external information (in the form of alignments) to improve the
+% alignment step.
+% 
+% Finally, PAGAN is another member of this class of methods; however, it has
+% some specific methodological differences to the others. First, unlike several of the others,
+% it does not use external biological information (about structure, function, etc.) to define
+% its seed alignment. Second, while the others tend to use either HMMs, profiles, or 
+% templates as a model to define the alignment of the remaining sequences, PAGAN estimates
+% a tree on its seed alignment, and estimates sequences for the internal nodes. These 
+% sequences are then used to define the incorporation of the remaining sequences to the seed
+% alignment. This technique is very similar to the technique used in PaPaRa, which
+% was developed for the phylogenetic placement problem. Thus, PAGAN
+% is one of the ``phylogeny-aware'' alignment methods, a technique that is atypical of these
+% template-based methods, but shared by progressive aligners. PAGAN was compared to an
+% HMM-based method (using HMMER on the reference alignment to build an HMM, and
+% then using HMMALIGN to align the sequences to the HMM) on several datasets.
+% The comparison showed that PAGAN had very good accuracy, better than HMMALIGN,
+% under low rates of evolution, and that both methods had reduced accuracy under high
+% rates of evolution. They also noted that PAGAN failed to align some sequences under
+% model conditions with high rates of evolution, while HMMER aligned all sequences; 
+% however, the sequences that both HMMER and PAGAN aligned were aligned more accurately
+% using PAGAN.
+% 
+% \subsubsection{Methods that use divide-and-conquer on the taxon set}
+% Some alignment methods use a divide-and-conquer strategy in which the 
+% taxon set is divided into subsets
+% (rather than the sites) in order to estimate the alignment; these include the 
+% mega-phylogeny method developed by Smith, SAT'e, SATCHMO-JS,
+% PROMALS, and the method by Neuwald. (The SAT'e and SATCHMO-JS 
+% methods co-estimate alignments and trees, and so are not strictly speaking just alignment
+% methods.) Neuwald's method is a bit of an outlier in this set, because the user provides
+% the dataset decomposition, but we include it here for comparative purposes.
+% 
+% While the methods differ in some details, they use similar strategies to estimate 
+% alignments. Most estimate an initial tree, and then use the tree to divide the dataset into
+% subsets. The method to compute the initial trees differs, with SATCHMO-JS using a
+% neighbor joining (NJ) tree on a MAFFT alignment, SAT'e using a maximum 
+% likelihood tree on a MAFFT alignment, PROMALS using a UPGMA tree on $k$-mer distances,
+% and mega-phylogeny using a reference tree and estimated alignment.
+% 
+% The subsequent division into subsets is performed in two ways. In the case of 
+% mega-phylogeny, SATCHMO-JS, and PROMALS, the division into subsets is performed by
+% breaking the starting tree into clades so as to limit the maximum dissimilarity between
+% pairs of sequences in each set. In contrast, SAT'e-2 removes centroid edges from the
+% unrooted tree, recursively, until each subset is small enough (below 200 sequences). Thus,
+% the sets produced by the SAT'e-2 decomposition do not form clades in the tree, unlike the
+% other decompositions. Furthermore, the sets produced by the SAT'e-2 decomposition are
+% guaranteed to be small (at most 200 taxa) but are not constrained to have low pairwise
+% dissimilarities between sequences.
+% 
+% Alignments are then produced on each subset, with PROMALS, SAT'e, and 
+% mega-phylogeny estimating alignments on each subset, and SATCHMO-JS using the alignment
+% induced on the subset by the initial MAFFT alignment.
+% 
+% These alignments are then merged together into an alignment on the full set, but the
+% methods use different techniques. PROMALS and mega-phylogeny use template-based
+% methods to merge the alignments together, while SATCHMO-JS and SAT'e use progressive
+% alignment techniques. PROMALS also uses external knowledge about protein structure
+% to guide the template-based merger of the alignments together. PROMALS, 
+% SATCHMO-JS, and mega-phylogeny use sophisticated methods to merge subset-alignments, but SAT'e
+% uses a very simple method (Muscle) to merge subset-alignments.
+% 
+% \subsubsection{Very large-scale alignment}
+% When the datasets are very large, containing many
+% thousands of sequences, only a few alignment estimation methods are able to run. As
+% noted, the template-based methods (including PROMALS and mega-phylogeny) scale
+% linearly with the number of taxa, and so can be used with very large datasets. SAT'e
+% and SATCHMO-JS are not quite as scalable; however, SAT'e has been able to analyze
+% nucleotide datasets with about 28,000 sequences. Other methods that have been shown to
+% run on very large datasets include Clustal-Omega, MAFFT-PartTree, and 
+% Kalign-2, but many methods fail to run on datasets with tens of thousands of sequences.
+% Of these, Clustal-Omega is only designed for protein sequences, but MAFFT-PartTree
+% and Kalign-2 can analyze both nucleotide and amino-acid sequences.
+% 
+% SAT'e is computationally limited by its use of progressive alignment and maximum
+% likelihood method (RAxML or FastTree-2) in each iteration; both impact the 
+% running time and - in the case of large numbers of long sequences - memory usage. However,
+% although limited to datasets with perhaps only 30,000 sequences (or so), on fast-evolving
+% datasets with 1000 or more sequences, SAT'e provides improvements in phylogenetic 
+% accuracy relative to competing methods.
 
-These alignments are then merged together into an alignment on the full set, but the
-methods use different techniques. PROMALS and mega-phylogeny use template-based
-methods to merge the alignments together, while SATCHMO-JS and SAT'e use progressive
-alignment techniques. PROMALS also uses external knowledge about protein structure
-to guide the template-based merger of the alignments together. PROMALS, 
-SATCHMO-JS, and mega-phylogeny use sophisticated methods to merge subset-alignments, but SAT'e
-uses a very simple method (Muscle) to merge subset-alignments.
+\section{Phylogenetic tree}
 
-\subsubsection{Very large-scale alignment}
-When the datasets are very large, containing many
-thousands of sequences, only a few alignment estimation methods are able to run. As
-noted, the template-based methods (including PROMALS and mega-phylogeny) scale
-linearly with the number of taxa, and so can be used with very large datasets. SAT'e
-and SATCHMO-JS are not quite as scalable; however, SAT'e has been able to analyze
-nucleotide datasets with about 28,000 sequences. Other methods that have been shown to
-run on very large datasets include Clustal-Omega, MAFFT-PartTree, and 
-Kalign-2, but many methods fail to run on datasets with tens of thousands of sequences.
-Of these, Clustal-Omega is only designed for protein sequences, but MAFFT-PartTree
-and Kalign-2 can analyze both nucleotide and amino-acid sequences.
+\subsection{Step 3: Reconstructing phylogenetic tree}
 
-SAT'e is computationally limited by its use of progressive alignment and maximum
-likelihood method (RAxML or FastTree-2) in each iteration; both impact the 
-running time and - in the case of large numbers of long sequences - memory usage. However,
-although limited to datasets with perhaps only 30,000 sequences (or so), on fast-evolving
-datasets with 1000 or more sequences, SAT'e provides improvements in phylogenetic 
-accuracy relative to competing methods.
+Before proceeding to the construction of a phylogenetic tree, you should examine the 
+existing models of gene sequences.
 
 \subsection{Stochastic models of sequence evolution}
 We begin with a description of the simplest stochastic models of DNA sequence 
@@ -255,7 +439,7 @@ model used for nucleotide phylogeny estimation is GTR+gamma, i.e., the General T
 Reversible (GTR) model of site substitution, equipped with a gamma distribution of rates
 across sites.
 
-\subsubsection{Protein models}
+\subsection{Protein models}
 Just as with DNA sequence evolution models, there are Markov
 models of evolution for amino-acid sequences, and also for coding DNA sequences. These
 models are described in the same way - a substitution matrix that governs the tree,
@@ -577,39 +761,39 @@ estimation of large datasets may require the use of new
 methods that are based upon more realistic, and more general, 
 models of sequence evolution.
 
-\subsubsection{Bayesian MCMC methods}
-Bayesian methods are similar to maximum likelihood methods 
-in that the likelihood of a model tree with respect to the 
-input sequence alignment is computed during the analysis; 
-the main difference is that maximum likelihood selects the 
-model tree (both topology and numeric parameters) that 
-optimizes the likelihood, while a Bayesian method outputs a 
-distribution on trees. However, once the distribution is 
-computed, it can be used to compute a single point estimate 
-of the true tree using various techniques (e.g., a consensus 
-tree can be computed, or the model tree topology with the 
-maximum total probability can be returned).
+% \subsubsection{Bayesian MCMC methods}
+% Bayesian methods are similar to maximum likelihood methods 
+% in that the likelihood of a model tree with respect to the 
+% input sequence alignment is computed during the analysis; 
+% the main difference is that maximum likelihood selects the 
+% model tree (both topology and numeric parameters) that 
+% optimizes the likelihood, while a Bayesian method outputs a 
+% distribution on trees. However, once the distribution is 
+% computed, it can be used to compute a single point estimate 
+% of the true tree using various techniques (e.g., a consensus 
+% tree can be computed, or the model tree topology with the 
+% maximum total probability can be returned).
+% 
+% The standard technique used to estimate this distribution 
+% is a random walk through the model tree space, and the 
+% distribution is produced after the walk has converged to 
+% the stationary distribution.
+% 
+% There are many different Bayesian methods (e.g., MrBayes, BEAST, 
+% PhyloBayes, p4, and BayesPhylogenies), differing in terms 
+% of the techniques used to perform the random walk, and 
+% the model under which the likelihood is computed; however, 
+% MrBayes is the most popular of the methods. Bayesian 
+% methods provide theoretical advantages compared to 
+% maximum likelihood methods. However, the proper use of a 
+% Bayesian MCMC method requires that it run to convergence, 
+% and this can take a very long time on large datasets. 
+% Thus, from a purely empirical stand- point, Bayesian 
+% methods do not yet have the scalability of the best 
+% maximum likelihood methods, and they are generally 
+% not used on very large datasets.
 
-The standard technique used to estimate this distribution 
-is a random walk through the model tree space, and the 
-distribution is produced after the walk has converged to 
-the stationary distribution.
-
-There are many different Bayesian methods (e.g., MrBayes, BEAST, 
-PhyloBayes, p4, and BayesPhylogenies), differing in terms 
-of the techniques used to perform the random walk, and 
-the model under which the likelihood is computed; however, 
-MrBayes is the most popular of the methods. Bayesian 
-methods provide theoretical advantages compared to 
-maximum likelihood methods. However, the proper use of a 
-Bayesian MCMC method requires that it run to convergence, 
-and this can take a very long time on large datasets. 
-Thus, from a purely empirical stand- point, Bayesian 
-methods do not yet have the scalability of the best 
-maximum likelihood methods, and they are generally 
-not used on very large datasets.
-
-\subsubsection{Comparisons between methods}
+\subsection{Comparisons between methods} \cite{hall}
 Simulation studies have shown some interesting 
 differences between methods. For example, the 
 comparison between neighbor joining and maximum 
@@ -619,14 +803,21 @@ with maximum parsimony sometimes performing better
 on large trees with high rates of evolution, even 
 though the reverse generally holds for smaller trees.  
 
+\begin{figure}[t] 
+  \center
+  \includegraphics[width=1\textwidth]{comparison}
+  \caption[w]{A comparison of phylogenetic methods \cite{comparison}} 
+  \label{img:comparison}  
+\end{figure}
+
 More generally, most simulation studies have shown 
 that maximum likelihood and Bayesian methods 
 (when they can be run properly) outperform maximum 
 parsimony and distance-based methods in many 
 biologically realistic conditions 
-(see Wang et al. for one such study).
+(see Wang et al. for one such study). \cite{simmons}
 
-\subsubsection{Heuristics for exploring treespace}
+\subsection{Heuristics for exploring treespace}
 Since both maximum likelihood and maximum parsimony 
 are NP-hard, methods for ``solving'' these problems 
 use heuristics to explore the space of different tree 
