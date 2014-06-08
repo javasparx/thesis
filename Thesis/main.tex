@@ -16,7 +16,7 @@
 % \setcounter{page}{1} 	% reset page counter
 % \pagenumbering{roman}	% numerate pages as I,II,III,..
 
-\input{abstract}
+% \input{abstract}
 
 % \input{preface}
  
@@ -47,7 +47,7 @@
 % should consult the style manual recommended by their \cite{primes} department.
 
 \pagenumbering{arabic}	% numerate pages as 1,2,3,..
-\setcounter{page}{3} 	% reset page counter
+\setcounter{page}{7} 	% reset page counter
 
 % Kirish
 \input{introduction} 
@@ -63,10 +63,27 @@
 
 \input{conclusion}
 
-%\input{reference}
+\nocite{*} 
 
+% \clearpage
+%\input{reference}
+% \settocbibname{References} 
+\renewcommand{\bibname}{References}
+\addcontentsline{toc}{chapter}{\numberline{}References}
 \bibliographystyle{plainnat}	
 \bibliography{biblio}
+
+% \begin{appendices}
+% 
+% The contents...
+% asdasdas
+% \end{appendices}
+\clearpage
+
+% \addcontentsline{toc}{chapter}{\numberline{}Appendices}
+% \appendix
+% \section*{Appendices}
+\include{appendix}
 
 
 \end{document}

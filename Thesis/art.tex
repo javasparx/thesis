@@ -1,12 +1,12 @@
-\chapter{State of Art}
-\section{Align sequences}
+\chapter{The main stages of the construction of a phylogenetic tree}
+\section{Multiple sequences alignment}
 To show the novelty of my work, at first need to 
 understand what was researched previously.
 
 Same stages of the actions are used to construct a phylogenetic tree in many methods.
 They can be divided in three main actions.
 
-\subsection{Step 1: Align sequences} \label{phase1}
+\subsection{Stage 1: Align sequences} \label{phase1}
 
 \begin{algorithm}[H]
 \KwData{Given $n$ unaligned sequences\;}
@@ -15,13 +15,12 @@ They can be divided in three main actions.
 	go to next phase\;
 }
 {
-	Align all sequences to each other\;
+	Align all sequences\;
 }
 \end{algorithm}
 
-\cite{rporter}
 
-Alignment methods vary in type of data (DNA, RNA, or amino-acid)
+Alignment methods vary in type of data \cite{rporter} (DNA, RNA, or amino-acid)
 they can handle, and also, to some extent, the objectives of the alignment method \cite{tandy}.
 Thus, some methods are designed exclusively for proteins, some exclusively
 for RNAs, but many alignment methods can analyze both protein and nucleotide
@@ -45,7 +44,7 @@ computationally expensive and impractical since it has been shown to be a NP-com
 problem. Instead, heuristics are commonly used to perform a multiple 
 sequence alignment. This research focused on studying one heuristic approach 
 called progressive alignment. One popular program that employs a progressive 
-alignment method is ClustalW \nocite{clustalw} \footnote{ClustalW is a popular 
+alignment method is ClustalW \footnote{ClustalW is a popular 
 program used for multiple sequence alignment and for preparing phylogenetic trees}. 
 Perform a multiple sequence alignment can be broken down into three major steps.
 \nocite{clustalwsite}
@@ -80,9 +79,9 @@ never reconsidered despite what other decisions are made for the remaining speci
 This can lead to inaccuracies in the final alignment.
 \end{description}
 
-\section{Distance Matrix}
+\section{Building Distance Matrix to campare taxons}
 
-\subsection{Step 2: Building of Distance Matrix} \label{phase2}
+\subsection{Stage 2: Building Distance Matrix} \label{phase2}
 An important tool in distance-based methods in building phylogenetic 
 tree is the use of distance matrix. An $m*n$ matrix is a collection 
 of $nm$ real numbers, arranged in $m$ rows and $n$ columns.
@@ -379,9 +378,9 @@ might have impact on all the data follows.
 % datasets with 1000 or more sequences, SAT'e provides improvements in phylogenetic 
 % accuracy relative to competing methods.
 
-\section{Phylogenetic tree}
+\section{Phylogenetic tree generation}
 
-\subsection{Step 3: Reconstructing phylogenetic tree}
+\subsection{Stage 3: Reconstructing phylogenetic tree}
 
 Before proceeding to the construction of a phylogenetic tree, you should examine the 
 existing models of gene sequences.
@@ -828,5 +827,22 @@ trees that have already been scored), and how
 they move within treespace. 
  
 % \section{Methods of research}
+
+\addcontentsline{toc}{section}{\numberline{}Conclusion for Chapter 2}
+\section*{Conclusion for Chapter 2}
+
+- Alignment methods vary in type of data \cite{rporter} (DNA, RNA, or aminoacid)
+they can handle
+
+- There are three main stages to reconstruct phylogenetic tree:
+sequences aligment, calculate distance matrix, reconstruction tree.
+
+- Neighbor joining is the simplest methods for reconstructing
+phylogenetic trees.
+
+- Maximum parsimony sometimes performing better 
+on large trees with high rates of evolution, even 
+though the reverse generally holds for smaller trees. 
+ 
 
 \newpage

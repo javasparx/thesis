@@ -42,11 +42,24 @@
 	}\par
 }
 
-\setlength{\cftchapnumwidth}{0pt}
-\renewcommand{\cftchappresnum}{\chaptername\ }
-\renewcommand{\cftchapaftersnum}{.}
-\renewcommand{\cftchapaftersnumb}{\newline}
-\renewcommand{\cftchapdotsep}{\cftdotsep}
+% \etocsetstyle{chapter}
+% {\parindent 0pt\leftskip 0pt\relex \rightskip .75cm \nobreak \etocskipfirstprefix}
+% {\pagebreak[3]\bigskip}
+% {\bfseries\large Chapter \etocnumber{} \etocname\par}
+% {}
+
+\renewcommand{\cftchappresnum}{Chapter }
+\cftsetindents{chapter}{0em}{5em}
+\cftsetindents{section}{0em}{5em}
+
+% \setlength{\cftchapnumwidth}{2.6cm}
+% \renewcommand{\cftchapfont}{\scshape}
+% \renewcommand{\cftchappresnum}{\chaptername\ }
+\renewcommand{\cftchapaftersnum}{.}{\cftchapaftersnumb}
+% \renewcommand%{\newline}
+\renewcommand{\cftchapdotsep}{\cftdotsep} % dots between chapter and number
+
+\renewcommand*{\thesection}{\arabic{section}} % style section numbering. (1 sechtion_name)
 
 %Definition
 \newtheorem{defn}{Definition}
@@ -55,8 +68,29 @@
 \setcounter{secnumdepth}{1}
 \setcounter{tocdepth}{1} 
 
+% line spacing
 \linespread{1.5}
 
+
+% \titleformat{\chapter}[display]% OLD
+%     {\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}% OLD
+% \titlespacing*{\chapter}{0pt}{50pt}{40pt}% OLD
+\titleformat{\chapter}[display]% NEW
+    {\normalsize\bfseries\centering}{\chaptertitlename\ \thechapter}{5pt}{\normalsize}% NEW
+\titlespacing*{\chapter}{0pt}{30pt}{20pt}% NEW
+
+\titleformat*{\section}{\normalsize\bfseries}
+\titleformat*{\subsection}{\normalsize\bfseries}
+\titleformat*{\subsubsection}{\normalsize\bfseries}
+
+% listings styles
+\lstset{language=java,
+           basicstyle=\footnotesize,
+           breaklines=true,
+           keywordstyle=\color{blue}\ttfamily,
+           stringstyle=\color{red}\ttfamily,
+           commentstyle=\color{green}\ttfamily
+          }
 % \newcommand{\listdefinitionname}{List of Definition}
 % \newlistof{definition}{defi}{\listdefinitionname}
 % \newcommand{\definition}[1]{%

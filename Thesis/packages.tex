@@ -41,7 +41,7 @@
 \usepackage{amsmath}
 
 % Custom list of 'element's
-% \usepackage{tocloft}
+% \usepackage{titletoc}
 
 % Using underscore sign %
 \usepackage{underscore}
@@ -53,7 +53,30 @@
 % for displaying fun algorithms
 \usepackage[tworuled]{algorithm2e}
 
-\usepackage{times} 
+\usepackage{times}
+
+\usepackage[toc]{appendix}
+
+\usepackage{titlesec} %headings font size
+
+% \usepackage{splitbib}
+% 
+% \begin{category}{My Books}
+% \SBentries{newick}
+% \end{category}
+% \begin{category}{Online Resources}
+% \SBentries{newick}
+% \end{category}
+% 
+% \newdimen\SBabovesepwidth
+% \newdimen\SBbelowsepwidth
+% \setlength{\SBabovesepwidth}{0pt}
+% \setlength{\SBbelowsepwidth}{0pt}
+
+
+% \usepackage[nottoc]{tocbibind} 
+% \usepackage{etoolbox} 
+% \apptocmd{\thebibliography}{\csname phantomsection\endcsname\addcontentsline{toc}{chapter}{\numberline{} \bibname}}{}{} 
 % \setmainfont{Times New Roman} 
 
 % \geometry{a4paper,top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm}
